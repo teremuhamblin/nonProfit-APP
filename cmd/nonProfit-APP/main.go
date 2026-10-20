@@ -1,32 +1,42 @@
 package main
 
 import (
+	"fmt"
 	"log"
-	"net/http"
 
 	"github.com/teremuhamblin/nonProfit-APP/internal/config"
 	"github.com/teremuhamblin/nonProfit-APP/internal/http"
 	"github.com/teremuhamblin/nonProfit-APP/internal/storage"
+	"go.uber.org/zap"
 )
 
 func main() {
+	// Logger professionnel
+	logger, _ := zap.NewProduction()
+	defer logger.Sync()
+
+	logger.Info("Starting NonProfit-APP API...")
+
 	// Charger la configuration
 	cfg, err := config.Load()
 	if err != nil {
-		log.Fatalf("Erreur configuration: %v", err)
+		logger.Fatal("Failed to load configuration", zap.Error(err))
 	}
 
 	// Initialiser la base SQLite
-	db, err := storage.InitSQLite(cfg.DatabasePath)
+	db, err := storage.InitSQLite(cfg.Database.Path)
 	if err != nil {
-		log.Fatalf("Erreur SQLite: %v", err)
+		logger.Fatal("Failed to initialize SQLite", zap.Error(err))
 	}
 
-	// Router HTTP
-	router := http.NewRouter(db)
+	// Initialiser le router HTTP (Chi)
+	api := http.NewRouter(db, cfg, logger)
 
-	log.Printf("NonProfitApp Go running on %s", cfg.ServerAddress)
-	if err := http.ListenAndServe(cfg.ServerAddress, router); err != nil {
-		log.Fatal(err)
+	// Démarrer le serveur
+	addr := fmt.Sprintf(":%d", cfg.Server.Port)
+	logger.Info("NonProfit-APP running", zap.String("address", addr))
+
+	if err := api.Listen(addr); err != nil {
+		logger.Fatal("Server stopped with error", zap.Error(err))
 	}
 }
