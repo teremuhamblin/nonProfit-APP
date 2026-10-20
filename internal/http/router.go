@@ -3,19 +3,19 @@ package http
 import (
 	"net/http"
 
-	"github.com/teremuhamblin/nonProfit-APP/internal/storage"
+	"gorm.io/gorm"
 )
 
-func NewRouter() http.Handler {
+func NewRouter(db *gorm.DB) http.Handler {
 	mux := http.NewServeMux()
-	store := storage.NewMemoryStore()
 
 	mux.HandleFunc("/health", func(w http.ResponseWriter, r *http.Request) {
-		w.WriteHeader(http.StatusOK)
 		w.Write([]byte(`{"status":"ok"}`))
 	})
 
-	mux.HandleFunc("/donors", donorsHandler(store))
+	mux.HandleFunc("/donors", DonorsHandler(db))
+	mux.HandleFunc("/donations", DonationsHandler(db))
+	mux.HandleFunc("/campaigns", CampaignsHandler(db))
 
 	return mux
 }
