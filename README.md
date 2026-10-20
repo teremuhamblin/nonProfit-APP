@@ -1,10 +1,31 @@
 ###### README.md >> markdown 
 # nonProfit-APP
-
-### Structure proposée du projet Go
+### Language : GOLang
 
 ---
 
+- Une petite ***API en Go*** pour gérer :
+```markdown
+- les donateurs
+- les dons
+- les campagnes
+```
+
+>>Lancer le projet :
+```bash
+go run ./cmd/nonProfit-APP
+```
+
+>>Endpoints :
+```markdown
+- GET /health → status
+- GET /donors → liste des donateurs
+- POST /donors → créer un donateur
+```
+
+---
+
+### Structure du projet Go
 ```text
 nonprofitapp-go/
 ├── go.mod
