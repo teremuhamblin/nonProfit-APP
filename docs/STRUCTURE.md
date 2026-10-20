@@ -43,8 +43,8 @@ nonProfit-APP/
 │
 ├── config.yaml
 ├── go.mod
-├── Makefile
-├── Dockerfile
+├── MAKEFILE
+├── DOCKERFILE
 ├── README.md
 └── .github/
     └── workflows/
