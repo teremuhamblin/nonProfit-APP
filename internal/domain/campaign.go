@@ -1,7 +1,7 @@
 package domain
 
 type Campaign struct {
-	ID          int64  `json:"id"`
+	ID          uint   `json:"id" gorm:"primaryKey"`
 	Title       string `json:"title"`
 	Description string `json:"description"`
 }
