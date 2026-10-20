@@ -13,7 +13,7 @@
 
 >>Lancer le projet :
 ```bash
-go run ./cmd/nonProfit-APP
+go run ./cmd/nonProfit-APP/main.go
 ```
 
 >>Endpoints :
