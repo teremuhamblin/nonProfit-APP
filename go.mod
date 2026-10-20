@@ -1,3 +1,3 @@
-mkdir nonprofitapp-go
-cd nonprofitapp-go
-go mod init github.com/tonpseudo/nonprofitapp-go
+mkdir nonProfit-APP 
+cd nonProfit-APP
+go mod init github.com/teremuhamblin/nonProfit-APP
