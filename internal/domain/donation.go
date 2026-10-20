@@ -1,7 +1,10 @@
 package domain
 
+import "time"
+
 type Donation struct {
-	ID      uint    `json:"id" gorm:"primaryKey"`
-	DonorID uint    `json:"donor_id"`
-	Amount  float64 `json:"amount"`
+	ID        uint      `gorm:"primaryKey"`
+	DonorID   uint      `gorm:"index"`
+	Amount    float64   `gorm:"not null"`
+	CreatedAt time.Time
 }
