@@ -1,0 +1,17 @@
+github.com/go-chi/chi/v5 v5.0.10 h1:2xRjPqQFfZ7Z2qxdjQ671O5jM90oCbGyF/F7fs/3uY8=
+github.com/go-chi/chi/v5 v5.0.10/go.mod h1:Z4Z0ZqfFQxPpZQ+Q0jrISFRCGDpa2BkLomPvKgJo6ao=
+
+github.com/google/uuid v1.6.0 h1:8K1HfFvQWbZ4J7eG1xJrZ6Vx5xL7sRKqGZo4PM5XgS8=
+github.com/google/uuid v1.6.0/go.mod h1:TIyPp8b9JYkY9gB1t9bXGkV1JrZ6Vx5xL7sRKqGZo4PM=
+
+github.com/spf13/viper v1.18.2 h1:Vn1Z8Y8QqD/w3vGN9VOGBev5nYeD1yfknhk+aoCA8uE=
+github.com/spf13/viper v1.18.2/go.mod h1:Vn1Z8Y8QqD/w3vGN9VOGBev5nYeD1yfknhk+aoCA8uE=
+
+go.uber.org/zap v1.27.0 h1:K2xE8p8nH3UX0DpD+s/COM24kTx5cDIeEJD7BqXc9Ew=
+go.uber.org/zap v1.27.0/go.mod h1:K2xE8p8nH3UX0DpD+s/COM24kTx5cDIeEJD7BqXc9Ew=
+
+gorm.io/driver/sqlite v1.5.7 h1:8JrIoYNewc19hXtOD87mpy4V/mQJu1nvLKYj1WFJsbg=
+gorm.io/driver/sqlite v1.5.7/go.mod h1:8JrIoYNewc19hXtOD87mpy4V/mQJu1nvLKYj1WFJsbg=
+
+gorm.io/gorm v1.25.7 h1:QeJv1nQYp7q0pYt6rY+1HkQmVJvZ1zQ0jrISFRCGDpa=
+gorm.io/gorm v1.25.7/go.mod h1:QeJv1nQYp7q0pYt6rY+1HkQmVJvZ1zQ0jrISFRCGDpa=
