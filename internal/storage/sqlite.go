@@ -13,12 +13,9 @@ func InitSQLite(path string) (*gorm.DB, error) {
 		return nil, err
 	}
 
-	// Auto migration
-	db.AutoMigrate(
-		&domain.Donor{},
-		&domain.Donation{},
-		&domain.Campaign{},
-	)
+	if err := db.AutoMigrate(&domain.User{}, &domain.Donor{}, &domain.Donation{}); err != nil {
+		return nil, err
+	}
 
 	return db, nil
 }
