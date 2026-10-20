@@ -1,4 +1,12 @@
-###### STRUCTURE.md >> markdown 
+###### STRUCTURE.md >> markdown
+# nonProfit-APP
+---
+
+>> Une base propre, scalable, orientée ***API REST sécurisée avec JWT + SQLite + CI/CD + Swagger***.
+
+---
+
+📁 Arborescence du projet
 
 ```text
 nonProfit-APP/
