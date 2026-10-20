@@ -1,7 +1,7 @@
 package domain
 
 type Donor struct {
-	ID    int64  `json:"id"`
+	ID    uint   `json:"id" gorm:"primaryKey"`
 	Name  string `json:"name"`
 	Email string `json:"email"`
 }
