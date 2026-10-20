@@ -1,5 +1,11 @@
 server:
-  address: ":8080"
+  port: 8080
 
 database:
   path: "nonProfit-APP.db"
+
+security:
+  jwt_secret: "CHANGE_ME_TO_A_LONG_RANDOM_SECRET"
+
+app:
+  debug: true
