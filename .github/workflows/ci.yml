@@ -1,4 +1,4 @@
-name: CI Pipeline
+name: CI Premium Pipeline
 
 on:
   push:
@@ -8,7 +8,13 @@ on:
 
 jobs:
   build-test:
+    name: Build & Test (Matrix)
     runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        go-version: [ "1.22", "1.23" ]
+        os: [ ubuntu-latest, macos-latest ]
 
     steps:
       - name: Checkout
@@ -17,21 +23,27 @@ jobs:
       - name: Setup Go
         uses: actions/setup-go@v5
         with:
-          go-version: "1.23"
+          go-version: ${{ matrix.go-version }}
 
-      - name: Cache Go modules
+      - name: Cache Go
         uses: actions/cache@v4
         with:
           path: |
             ~/.cache/go-build
             ~/go/pkg/mod
-          key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
+          key: ${{ runner.os }}-go-${{ matrix.go-version }}-${{ hashFiles('**/go.sum') }}
 
-      - name: Install dependencies
+      - name: Install deps
         run: go mod tidy
 
       - name: Run tests
         run: go test ./... -v
 
-      - name: Build
-        run: go build ./...
+      - name: Build binary
+        run: go build -o nonprofit-app ./cmd/api
+
+      - name: Upload binary
+        uses: actions/upload-artifact@v4
+        with:
+          name: nonprofit-app-${{ matrix.os }}-${{ matrix.go-version }}
+          path: nonprofit-app
