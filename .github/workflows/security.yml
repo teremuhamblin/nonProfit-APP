@@ -1,0 +1,27 @@
+name: Security Premium Scan
+
+on:
+  schedule:
+    - cron: "0 3 * * 1"
+  workflow_dispatch:
+
+jobs:
+  sast:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Go vet
+        run: go vet ./...
+
+      - name: Static Analysis (Gosec)
+        uses: securego/gosec@master
+        with:
+          args: ./...
+
+      - name: Upload report
+        uses: actions/upload-artifact@v4
+        with:
+          name: gosec-report
+          path: gosec_output.json
