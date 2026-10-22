@@ -4,10 +4,13 @@ updates:
     directory: "/"
     schedule:
       interval: "daily"
-    open-pull-requests-limit: 10
+    allow:
+      - dependency-type: "direct"
+      - dependency-type: "indirect"
     labels:
       - "dependencies"
       - "security"
+      - "automation"
     commit-message:
       prefix: "deps"
       include: "scope"
@@ -15,10 +18,10 @@ updates:
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
-      interval: "weekly"
+      interval: "daily"
     labels:
       - "ci"
-      - "automation"
+      - "workflow"
 
   - package-ecosystem: "docker"
     directory: "/"
