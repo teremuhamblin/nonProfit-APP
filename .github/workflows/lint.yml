@@ -1,9 +1,8 @@
-name: Lint
+name: Lint Premium
 
 on:
-  pull_request:
   push:
-    branches: [ "main" ]
+  pull_request:
 
 jobs:
   lint:
@@ -16,10 +15,8 @@ jobs:
         with:
           go-version: "1.23"
 
-      - name: Install golangci-lint
+      - name: Run golangci-lint
         uses: golangci/golangci-lint-action@v6
         with:
           version: latest
-
-      - name: Run linter
-        run: golangci-lint run ./...
+          args: --timeout=5m
