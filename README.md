@@ -1,145 +1,155 @@
-###### nonProfit-APP/README.md >> markdown 
->>API moderne : Go 1.23, Chi, JWT, SQLite, Viper, Zap, CI/CD, Swagger.
+###### README.md >> markdown 
+###### - version Black‑Futuriste, Full Badges, Mermaid, Graphismes, Tech‑Diagrams, Modern UI, Next‑Gen Styling.
+###### - achievements GitHub (Maintainer, Contributor, Community, DevOps, Security, Releases, Documentation
 
-# 🟦 nonProfit-APP
-- API REST sécurisée en Go
->Une API moderne, rapide et sécurisée écrite en Golang, conçue pour gérer :
+# 🟦 nonProfit‑APP
+
+<p align="center">
+  
+- ***API REST moderne***
+
+- ***sécurisée en Go 1.23***
+
+</p>
+
+---
+<p align="right">
+  <img src="https://img.shields.io/badge/Go-1.23-blue?logo=go&style=for-the-badge"/>
+  <img src="https://img.shields.io/badge/Framework-Chi-blue?logo=go&style=for-the-badge"/>
+  <img src="https://img.shields.io/badge/Auth-JWT-blue?logo=jsonwebtokens&style=for-the-badge"/>
+  <img src="https://img.shields.io/badge/DB-SQLite-blue?logo=sqlite&style=for-the-badge"/>
+  <img src="https://img.shields.io/badge/Config-Viper-blue?logo=go&style=for-the-badge"/>
+  <img src="https://img.shields.io/badge/Logger-Zap-blue?logo=go&style=for-the-badge"/>
+</p>
+
+</br>
+
+<p align="left">
+  <img src="https://img.shields.io/github/actions/workflow/status/teremuhamblin/nonProfit-APP/ci.yml?style=for-the-badge&logo=github&color=FF0000"/>
+  <img src="https://img.shields.io/github/license/teremuhamblin/nonProfit-APP?style=for-the-badge&color=FF0000"/>
+  <img src="https://img.shields.io/github/stars/teremuhamblin/nonProfit-APP?style=for-the-badge&color=FF0000"/>
+  <img src="https://img.shields.io/github/last-commit/teremuhamblin/nonProfit-APP?style=for-the-badge&color=FF0000"/>
+</p>
+
+---
+### ✨ Présentation
+- Une *API REST moderne*, scalable, sécurisée, *écrite en Go 1.23*, pensée pour gérer :
 ```text
 - les utilisateurs (authentification JWT)
 - les donateurs
 - les dons
 - les campagnes (extension possible)
 ```
-- Cette base est pensée pour être scalable, propre, modulaire, et prête pour la production.
+
+>>*Architecture propre, modulaire, production‑ready, avec CI/CD, logs structurés, configuration dynamique, migrations automatiques, et documentation Swagger*.
+
+---
+
+### ⚙️ Architecture Technique
+- — Vue d’ensemble
+````mermaid
+flowchart TD
+    A[Client HTTP] --> B[API Gateway - Chi Router]
+    B --> C[Middleware JWT]
+    C --> D[Handlers REST]
+    D --> E[Services Métier]
+    E --> F[SQLite + GORM]
+    E --> G[Logger Zap]
+    E --> H[Config Viper]
+````
+
+---
+
+### 🧬 Structure du projet
+
+```mermaid
+graph TD
+    A[cmd/api] --> B[internal/http]
+    B --> C[router.go]
+    B --> D[middleware.go]
+    B --> E[handlers/*]
+
+    A --> F[internal/domain]
+    F --> G[user.go]
+    F --> H[donor.go]
+    F --> I[donation.go]
+
+    A --> J[internal/storage]
+    J --> K[sqlite.go]
+
+    A --> L[internal/security]
+    L --> M[jwt.go]
+
+    A --> N[internal/config]
+    N --> O[config.go]
+
+    A --> P[internal/docs]
+    P --> Q[swagger.go]
+```
 
 ---
 
 ### 🚀 Fonctionnalités principales
 #### 🔐 Authentification JWT
-```text
+```markdown
 - POST /auth/register — création d’un utilisateur  
 - POST /auth/login — génération d’un token JWT  
 - Middleware de protection des routes  
-- Extraction automatique du user_id depuis le token
+- Extraction automatique du user_id depuis le token  
 ```
+
 #### 👥 Donateurs
-```text
 - GET /donors — liste des donateurs  
 - POST /donors — création d’un donateur  
-```
+
 #### 💸 Dons
-```text
 - GET /donations — liste des dons  
 - POST /donations — création d’un don  
-```
+
 #### 🗄️ Base de données SQLite
-```text
-- Auto-migrations via GORM  
+- Auto‑migrations via GORM  
 - Modèles : User, Donor, Donation
-```
+
 #### ⚙️ Configuration (Viper)
-```text
 - Port serveur  
 - Chemin SQLite  
 - Secret JWT  
 - Mode debug  
-```
+
 #### 📦 CI/CD GitHub Actions
-```text
 - Build  
 - Tests  
 - Lint  
 - Go 1.23  
-```
-#### 📘 Swagger (prêt à être activé)
 
-#### 📁 Structure du projet
-```markdown
-nonProfit-APP/docs/STRUCTURE.md
-```
+#### 📘 Swagger
+>>activable
 
-⚙️ Installation & Lancement
-1️⃣ Cloner le projet
-```bash
-git clone https://github.com/teremuhamblin/nonProfit-APP
-cd nonProfit-APP
-```
+---
 
-2️⃣ Installer les dépendances
-```bash
-go mod tidy
-```
+#### 🛰️ Diagramme Sécurité
+- — JWT Flow
 
-3️⃣ Lancer l’API
-```bash
-go run ./cmd/api
-```
+```mermaid
+sequenceDiagram
+    participant U as Utilisateur
+    participant API as API nonProfit-APP
+    participant DB as SQLite
 
-4️⃣ Build
-```bash
-make build
+    U->>API: POST /auth/login
+    API->>DB: Vérification des identifiants
+    DB-->>API: OK
+    API-->>U: Token JWT signé
+
+    U->>API: GET /donors (Authorization: Bearer <token>)
+    API->>API: Vérification signature JWT
+    API-->>U: Données protégées
 ```
 
-5️⃣ Docker
-```bash
-docker build -t nonprofit-app .
-docker run -p 8080:8080 nonprofit-app
-```
+---
 
-### 🔧 Configuration (config.yaml)
-```yaml
-server:
-  port: 8080
+### 🧪 Endpoints REST
 
-database:
-  path: "nonProfit-APP.db"
-
-security:
-  jwtsecret: "CHANGEMETOALONGRANDOM_SECRET"
-
-app:
-  debug: true
-```
-
-##$ 🔐 Authentification JWT
->Register
-```http
-POST /auth/register
-Content-Type: application/json
-
-{
-  "email": "user@example.com",
-  "password": "secret"
-}
-```
-
->Login
-```http
-POST /auth/login
-Content-Type: application/json
-
-{
-  "email": "user@example.com",
-  "password": "secret"
-}
-```
-
->Réponse :
-```json
-{
-  "success": true,
-  "data": {
-    "token": "eyJhbGciOiJIUzI1NiIsInR..."
-  }
-}
-```
-
->Utilisation du token
-```text
-Authorization: Bearer <token>
-```
-
-### 📘 Endpoints REST
 #### 👥 Donors
 
 | Méthode | Endpoint     | Description |
@@ -154,17 +164,50 @@ Authorization: Bearer <token>
 | GET     | /donations   | Liste des dons |
 | POST    | /donations   | Créer un don |
 
-### 🧪 CI/CD GitHub Actions
->>Le workflow ci.yml :
-```text
-- installe Go 1.23  
-- build le projet  
-- exécute les tests  
-- vérifie les dépendances  
+---
+
+#### 🔧 Configuration
+- config.yaml
+
+```yaml
+server:
+  port: 8080
+
+database:
+  path: "nonProfit-APP.db"
+
+security:
+  jwtsecret: "CHANGEMETOALONGRANDOM_SECRET"
+
+app:
+  debug: true
 ```
 
+---
+
+### 🐳 Docker
+
+```bash
+docker build -t nonprofit-app .
+docker run -p 8080:8080 nonprofit-app
+```
+
+---
+
+### 🛠️ Installation & Lancement
+
+```bash
+git clone https://github.com/teremuhamblin/nonProfit-APP
+cd nonProfit-APP
+go mod tidy
+go run ./cmd/api
+```
+
+---
+
 ### 🧱 Technologies utilisées
-```text
+
+```markdown
 - Go 1.23
 - Chi Router
 - GORM + SQLite
@@ -175,14 +218,15 @@ Authorization: Bearer <token>
 - Docker
 ```
 
-### 📌 Roadmap
-```text
-VOIR nonProfit-APP/docs/ROADMAP.md
-```
+---
+
+### 🧭 Roadmap
+###### 📄 Voir : nonProfit-APP/docs/ROADMAP.md
+
+---
 
 ### 🏁 Conclusion
-
-- Ce projet est une base solide, moderne et sécurisée pour construire une API Go professionnelle.  
-- Il est conçu pour être simple à comprendre, facile à étendre, et prêt pour la production.
+>>Ce projet est une base solide, moderne, sécurisée, et scalable pour construire une API Go professionnelle.
+   - Il est conçu pour être simple à comprendre, facile à étendre, et prêt pour la production.
 
 ---
